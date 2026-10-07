@@ -1,0 +1,103 @@
+[
+  {
+    "timestamp": "2026-10-06T15:18:51.923178",
+    "model": "baseline_median",
+    "dataset": "data/Property_with_Feature_Engineering.csv",
+    "n_samples": 126883,
+    "n_features": 1,
+    "features": [
+      "median"
+    ],
+    "metrics": {
+      "mae": 17137074.201,
+      "median_ae": 7500000.0,
+      "rmse": 43192845.1518,
+      "mape": 93.0404,
+      "r2": -0.0713
+    }
+  },
+  {
+    "timestamp": "2026-10-06T15:18:51.970096",
+    "model": "ridge",
+    "dataset": "data/Property_with_Feature_Engineering.csv",
+    "n_samples": 126883,
+    "n_features": 12,
+    "features": [
+      "property_type",
+      "city",
+      "location_clean",
+      "baths",
+      "bedrooms",
+      "area_marla",
+      "total_rooms",
+      "baths_per_bed",
+      "distance_to_city_center",
+      "has_agency",
+      "listing_age_days",
+      "society_avg_ppm"
+    ],
+    "metrics": {
+      "mae": 27668481.0726,
+      "median_ae": 4517203.764,
+      "rmse": 1582549636.5396,
+      "mape": 190.9062,
+      "r2": -1437.1261
+    }
+  },
+  {
+    "timestamp": "2026-10-06T15:19:10.221181",
+    "model": "random_forest",
+    "dataset": "data/Property_with_Feature_Engineering.csv",
+    "n_samples": 126883,
+    "n_features": 12,
+    "features": [
+      "property_type",
+      "city",
+      "location_clean",
+      "baths",
+      "bedrooms",
+      "area_marla",
+      "total_rooms",
+      "baths_per_bed",
+      "distance_to_city_center",
+      "has_agency",
+      "listing_age_days",
+      "society_avg_ppm"
+    ],
+    "metrics": {
+      "mae": 4411467.5673,
+      "median_ae": 1407374.5868,
+      "rmse": 20138236.4713,
+      "mape": 22.5297,
+      "r2": 0.7671
+    }
+  },
+  {
+    "timestamp": "2026-10-06T15:19:32.353437",
+    "model": "xgboost",
+    "dataset": "data/Property_with_Feature_Engineering.csv",
+    "n_samples": 126883,
+    "n_features": 12,
+    "features": [
+      "property_type",
+      "city",
+      "location_clean",
+      "baths",
+      "bedrooms",
+      "area_marla",
+      "total_rooms",
+      "baths_per_bed",
+      "distance_to_city_center",
+      "has_agency",
+      "listing_age_days",
+      "society_avg_ppm"
+    ],
+    "metrics": {
+      "mae": 4285132.5,
+      "median_ae": 1350647.0,
+      "rmse": 19128324.0,
+      "mape": 21.8554,
+      "r2": 0.7899
+    }
+  }
+]
