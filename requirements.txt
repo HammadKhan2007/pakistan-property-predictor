@@ -1,13 +1,8 @@
+streamlit
 pandas
 numpy
-scikit-learn
 xgboost
+scikit-learn
 shap
-streamlit
 matplotlib
-fastapi
-uvicorn
-pydantic
 joblib
-folium
-streamlit-folium
