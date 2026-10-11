@@ -21,6 +21,16 @@ def load_assets():
         return None
     m = xgb.XGBRegressor()
     m.load_model('models/xgb_model.json')
+    # Safely load SHAP explainer
+    shap_explainer = None
+    try:
+        shap_explainer = joblib.load('models/shap_explainer_raw.pkl')
+    except Exception:
+        try:
+            shap_explainer = shap.TreeExplainer(m)
+        except Exception:
+            shap_explainer = None
+
     return {
         'model': m,
         'q_lower': joblib.load('models/lgb_lower.pkl'),
@@ -29,7 +39,7 @@ def load_assets():
         'cat_cols': joblib.load('models/cat_cols.pkl'),
         'encoder': joblib.load('models/cat_encoder.pkl'),
         'loc_data': joblib.load('models/locations.pkl'),
-        'shap_explainer': joblib.load('models/shap_explainer_raw.pkl'),
+        'shap_explainer': shap_explainer,
     }
 
 assets = load_assets()
@@ -140,14 +150,17 @@ if st.button("🔍 Predict Price", type="primary"):
     # SHAP
     st.subheader("📊 Price Drivers (SHAP in PKR)")
     st.markdown("Shows how each feature pushed the price up ↑ or down ↓ from the average property price.")
-    try:
-        plt.style.use('dark_background')
-        shap_vals = assets['shap_explainer'](xgb_df)
-        fig, ax = plt.subplots(figsize=(10, 6))
-        shap.plots.waterfall(shap_vals[0], show=False)
-        st.pyplot(fig)
-    except Exception as e:
-        st.warning(f"SHAP error: {e}")
+    if assets.get('shap_explainer') is not None:
+        try:
+            plt.style.use('dark_background')
+            shap_vals = assets['shap_explainer'](xgb_df)
+            fig, ax = plt.subplots(figsize=(10, 6))
+            shap.plots.waterfall(shap_vals[0], show=False)
+            st.pyplot(fig)
+        except Exception as e:
+            st.warning(f"SHAP error: {e}")
+    else:
+        st.info("SHAP explainability is currently unavailable in this environment.")
 
 # ============================================================================
 # EDA GALLERY
